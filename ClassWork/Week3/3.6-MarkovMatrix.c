@@ -11,7 +11,7 @@ void scanMatrix(int row, int col, double matrix[row][col]){
 
 bool isMarkovMatrix(int size, double matrix[size][size]){
     for (int i = 0; i < size; i++){
-        int sum = 0;
+        double sum = 0;
         for (int j = 0; j < size; j++){
             if (matrix[j][i] <= 0)  return false;
             sum += matrix[j][i];
@@ -24,10 +24,11 @@ bool isMarkovMatrix(int size, double matrix[size][size]){
 
 int main(){
     int size;
-    double matrix[size][size];
 
     printf("Enter size:");
     scanf("%d", &size);
+
+    double matrix[size][size];
     
     scanMatrix(size, size, matrix);
 
@@ -37,8 +38,6 @@ int main(){
         printf("n't");
     
     printf(" a Markov matrix");
-
-
 
     return 0;
 }

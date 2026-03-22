@@ -55,6 +55,7 @@ int main(){
 
     printDep(depFile, id, name, surname, dep, grade, lines, depName, minGrade);
 
+    fclose(fileName);
 
     return 0;
 }

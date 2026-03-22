@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include "func.h"
-FILE *infile;
-FILE *copy;
-FILE *depFile;
 
 
 int main(){
+    FILE *infile;
+    FILE *copy;
+    FILE *depFile;
   
     infile = fopen("data.txt", "r");
     
@@ -22,8 +22,6 @@ int main(){
     char name[lines][20];
     char surname[lines][20];
     char dep[lines][20];
-    char searchName[20];
-    char searchSurname[20];
     char depName[20];
     int minGrade;
     char fileName[20];
@@ -35,7 +33,7 @@ int main(){
 
     fclose(infile);
     
-    copy = fopen("data-copy.exe", "w+");
+    copy = fopen("data-copy.txt", "w+");
     if (copy == NULL){
         printf("File couldn't be created!");
         return 1;
@@ -48,14 +46,18 @@ int main(){
     fclose(copy);
 
     printf("Enter the department and the minimum grade: ");
-    scanf("%s %d", depName, &minGrade);
-    sprintf(fileName, "%s  >%d.txt", depName, minGrade);
+    scanf("%19s %d", depName, &minGrade);
+    sprintf(fileName, "%s_%d.txt", depName, minGrade);
 
     depFile = fopen(fileName, "w");
+    if (depFile == NULL){
+        printf("File couldn't be created!");
+        return 1;
+    }
 
     printDep(depFile, id, name, surname, dep, grade, lines, depName, minGrade);
 
-    fclose(fileName);
+    fclose(depFile);
 
     return 0;
 }

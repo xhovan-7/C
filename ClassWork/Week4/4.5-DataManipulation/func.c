@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "func.h"
 
@@ -42,12 +41,15 @@ void printStudentInfo(FILE *copy, int lines){
 
     rewind(copy);
 
-    while (i < lines && (fscanf(copy, "%d %s %s %s %lf", &id, name, surname, dep, &grade) == 5)){
-        if ((strcmp(name, searchName) || strcmp(surname, searchSurname)) == 0){
-            printf("%d %s %s %s %lf\n", id, name, surname, dep, grade);
+    while (i < lines && (fscanf(copy, "%d %19s %19s %19s %lf", &id, name, surname, dep, &grade) == 5)){
+        if ((strcmp(name, searchName) == 0) && (strcmp(surname, searchSurname) == 0)){
+            printf("%d %s %s %s %.2lf\n", id, name, surname, dep, grade);
             return;
         }
+        i++;
     }
+    
+    printf("No Student found!\n");
 
 }
 

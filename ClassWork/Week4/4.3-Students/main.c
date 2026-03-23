@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string.h>
 
@@ -43,6 +44,8 @@ int main(){
     }
 
     int count = 0;
+    int failCnt = 0;
+    int sucCnt = 0;
 
     Student stud[100];
     while (fscanf(studFiles, "%19s %19s %lf %lf", 
@@ -59,11 +62,15 @@ int main(){
         double avg = (stud[i].grade1 + stud[i].grade2) / 2;
         if (avg < 5){
             fprintf(failFile, "%s %s %.2lf %.2lf\n", stud[i].name, stud[i].surname, stud[i].grade1, stud[i].grade2);
+            failCnt++;
         }
         else{
             fprintf(sucFile, "%s %s %.2lf %.2lf\n", stud[i].name, stud[i].surname, stud[i].grade1, stud[i].grade2);
+            sucCnt++;
         }
     }
+
+    printf("sucFile.txt has %d students. \nfailFile.txt has %d students.", sucCnt, failCnt);
 
     fclose(sucFile);
     fclose(failFile);

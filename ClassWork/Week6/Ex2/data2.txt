@@ -1,0 +1,11 @@
+10 5
+Archie Cortez 366.8
+Carla Caldwell 1664.5
+Don Townsend 4435
+Drew Stewart 3520
+Emanuel Hines 3262
+Lloyd Parks 5965
+Marcia Phillips 2327
+Oliver Burgess 748
+Robin Collins 774
+Rosemary Rice 4240.7

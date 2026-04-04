@@ -1,55 +1,151 @@
-#include <stdio.h>
 #include "func.h"
 
-int getSize(){
+
+int getSize(FILE *source){
     int size;
+    char line[100];
 
-    printf("Enter the number of students: ");
-    scanf("%d", &size);
+    fgets(line, 100, source);
 
-    while(size <= 0 && size >100){
-        printf("Enter a number between 1 - 100: ");
-        scanf("%d", &size);
+    sscanf(line, "%d", &size);
+
+    if(size <= 0 && size >100){
+        return -1;
     }
-
     return size;
 }
 
+/*
+double getTarget(){
+    double target;
+    printf("Enter the grade to search for: ");
+    scanf("%lf", &target);
 
-typedef struct Student
-{
-    char name[16];
-    double avg;
-    int grades[100];
-}Student;
+    while(target <= 0 && target > 100){
+        printf("Enter a grade between 1 - 100: ");
+        scanf("%d", &target);
+    }
+    return target;
+}
+*/
 
-Student *getGrades(int size){
+Student *readStudents(FILE *source, int size){
 
-    Student *student = malloc(size * sizeof(Student));
-    if (student == NULL) return NULL;
+    fscanf(source, "%d", &size);
+
+    Student *students = malloc((size + 1) * sizeof(Student));
+    if (students == NULL) return NULL;
+    else printf("Mallocation successfull!");
 
     for (int i = 0; i < size; i++){
-        printf("%d: ", i);
-        scanf("%s", student[i].name);
+        char line[101];
+        fgets(line, 100, source);
 
+        printf("%s", line);
+        
+        
         int j = 0;
         while(1){
-            scanf("%d", &student[i].grades[j]);
+            sscanf(line, "%d", &students[i].grades[j]);
 
-            if (student[i].grades[j++] == -999)   break;
+            if (students[i].grades[j] == -999){
+                students[i].grades[j] = 0;
+                break;
+            }
+            else if(students[i].grades[j] <= 0 && students[i].grades[j] > 100){
+                printf("Invalid Grade: %d", students[i].grades[j]);
+                return NULL;
+            }
+            j++;
         }
 
-        int sum = 0;
+
+        double sum = 0;
         for (int k = 0; k < j; k++){
-            sum += student[i].grades[k];
+            sum += students[i].grades[k];
         }
-
-        student[i].avg = (float)sum / (float)j;
-
+        students[i].avg = sum / j;
     }
 
-
-
+    return students;
 }
 
+void sortByAvg(Student *students, int size){
 
+    
+    for (int i = 0; i < size - 1; i++){
+        int min = i;
+
+        for (int j = i + 1; j < size; j++){
+            if (students[min].avg > students[j].avg){
+                min = j;
+            }
+        }
+        int k = 0;
+
+        students[size]= students[i];
+        students[i] = students[min];
+        students[min] = students[size];
+
+ /*       strcpy(temp.name, students[i].name);
+        temp.avg = students[i].avg;
+        do{
+            temp.grades[k] = students[i].grades[k];
+        }while (students[i].grades[k++] != 0);*/
+
+    }
+}
+
+void printStudent(Student *students, int size){
+    for (int i = 0; i < size; i++){
+        printf("%d: %s- avg: %.2lf, Grades: ", i + 1, students[i].name, students[i].avg);
+        for (int j = 0; ;j++){
+            if (students[i].grades[j] == 0){
+                printf(". \n");
+                break;
+            }
+
+            printf("%d, ", students[i].grades[j]);
+        }
+    }
+}
+
+double getTarget(){
+    int target;
+    printf("Enter the grade to search for: ");
+    scanf("%d", &target);
+
+    return target;
+}
+
+int binarySearch(Student *students, int size, double target){
+    int left = 0;
+    int right = size - 1;
+    int result = -1;
+
+    while(left <= right){
+        int mid = (left + right) / 2;
+
+        if (students[mid].avg >= target){
+            right = mid - 1;
+            result = mid;
+        }
+
+        else if (students[mid].avg < target){
+            left = mid + 1;
+        }
+    }
+
+    return result;
+}
+
+void printTarget(Student *students, int size, int index, double target){
+    printf("Student is at position %d\n", index + 1);
+
+    printf("Students with average grater than or equal to %.2lf\n", target);
+
+    for (int i = index, j = 0; i < size; i++, j++){
+        printf("%d: %s - %.2lf\n", i + 1, students[i].name, students[i].avg);
+    }
+
+}

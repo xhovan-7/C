@@ -6,7 +6,7 @@
 
 int main(){
     FILE *source;
-    source = fopen("data1.txt", "r");
+    source = fopen("data2.txt", "r");
     if (source == NULL){
         printf("Error opening file!\n");
         return 1;
@@ -17,9 +17,19 @@ int main(){
 
     getSize(source, &nrDonors, &topDonors);
 
-    Donor *donors = readDonor(source, nrDonors, topDonors);
+    Donor *donors = readDonor(source, nrDonors);
+
+    fclose(source);
+
+    sortDescending(donors, nrDonors);
+
+    printf("Top donors: \n");
+    printDonors(donors, topDonors);
 
 
+
+
+    free(donors);
 
     return 0; 
 }

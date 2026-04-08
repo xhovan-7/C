@@ -1,66 +1,80 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-typedef struct {
+struct Student(){
+    char name[20];
     int id;
-    char name[50];
-    char surname[50];
-    double grade;
-} Student;
+    int grades[3];
+    float avg;
+};
 
-Student *readStudents(FILE *fp, int *count) {
-    int capacity = 2;
-    *count = 0;
-
-    Student *students = malloc(capacity * sizeof(Student));
-    if (students == NULL) return NULL;
-
-    while (fscanf(fp, "%d %49s %49s %lf",
-                  &students[*count].id,
-                  students[*count].name,
-                  students[*count].surname,
-                  &students[*count].grade) == 4) {
-
-        (*count)++;
-
-        if (*count == capacity) {
-            capacity *= 2;
-            Student *temp = realloc(students, capacity * sizeof(Student));
-            if (temp == NULL) {
-                free(students);
-                return NULL;
-            }
-            students = temp;
-        }
+void readData(Student st[], int size){
+    
+    for (int i = 0; i < size; i++){
+        int sum = 0;
+        scanf("%s %d", st[i].name, &st[i].id);
+        for (int j = 0; j < 3; j++){
+            scanf("%d", &st[i].grade[j]);
+            sum += st[i].grade[j];
+        } 
+        st[i].avg = sum / 3.0;
     }
-
-    return students;
 }
 
-int main() {
-    FILE *fp = fopen("data.txt", "r");
-    if (fp == NULL) {
-        printf("File could not be opened\n");
-        return 1;
+struct Student findMax(struct Student st[], int size){
+    int maxIndex = 0;
+    for (int i = 1; i < size; i++){
+        if (st[max].avg < st[i].avg){
+            max = st[i].avg;
+            maxIndex = i;
+        }
     }
+    return st[max];
+}
 
-    int count;
-    Student *students = readStudents(fp, &count);
-    fclose(fp);
-
-    if (students == NULL) {
-        printf("Error reading students\n");
-        return 1;
+void sortArray(struct Student arr[], int size){
+    
+    for (int i = 1; i < size - 1; i++){
+        int maxIndex = i;
+        for (int j = i + 1; j < size; j++){
+	        if (st[max].avg < st[j].avg){
+ 	           maxIndex = j;
+            }
+        }
+        struct Student temp = arr[maxIndex];
+        arr[maxIndex] = arr[i];
+        arr[i] = temp;
     }
+}
 
-    for (int i = 0; i < count; i++) {
-        printf("%d %s %s %.2lf\n",
-               students[i].id,
-               students[i].name,
-               students[i].surname,
-               students[i].grade);
+void sortArrayByGrade(struct Student arr[], int size, int index){
+    
+    for (int i = 1; i < size - 1; i++){
+        int maxIndex = i;
+        for (int j = i + 1; j < size; j++){
+	        if (st[max].grade[index] < st[j].grade[index]){
+ 	           maxIndex = j;
+            }
+        }
+        struct Student temp = arr[maxIndex];
+        arr[maxIndex] = arr[i];
+        arr[i] = temp;
     }
+}
 
-    free(students);
+
+int main(){
+    int size;
+    scanf("%d", &size);
+	struct Student an[size];
+    readData(an, size);    
+    
+    int gradePosition;
+    puts("Enter the position of the grade do you want to sort by");
+    scanf("%d", &gradePosition);
+    sortArrayByGrade(an, size, gradePosition - 1);
+    
+     
+    
+    
     return 0;
 }

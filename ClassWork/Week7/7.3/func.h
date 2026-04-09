@@ -3,6 +3,11 @@
 #include <stdio.h>
 
 
+typedef struct Address{
+    char city[20];
+    char street[20];
+}Address;
+
 typedef struct Employee{
     char name[20];
     char position[20];
@@ -11,10 +16,6 @@ typedef struct Employee{
     Address addr;
 }Employee;
 
-typedef struct Address{
-    char city[20];
-    char street[20];
-}Address;
 
 void readData(Employee e[], int size);
 
@@ -26,6 +27,8 @@ double averageSalary(Employee e[], int size);
 
 int aboveAvg(Employee e[], int size, double avgSalary);
 
+void printLowestEmployee(Employee e);
 
+void printEmployes(Employee e[], int size);
 
 #endif

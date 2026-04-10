@@ -5,8 +5,9 @@
 
 
 int main(){
+    
     FILE *fp;
-    fp = fopen("data.txt", "r");
+    fp = fopen("data.txt", "r");    
     if (fp == NULL){puts("File failed to open!"); exit(1);}
 
     int row, col;

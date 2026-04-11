@@ -47,6 +47,8 @@ void readData(FILE *fp, Student students[], int size){
 }
 
 
+
+
 void getAvg(Student students[], int size){
     for (int i = 0; i < size; i++){
         int sum = 0;

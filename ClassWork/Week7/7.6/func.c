@@ -36,6 +36,7 @@ void readData(FILE *fp, Student students[], int size){
         for (int j = 0; j < 4; j++){
             sscanf(line, "%d%n", &students[i].grades[j], &offset);
             ptr += offset;
+            
         }
         printf("%d: %s %s %d %d %d %d\n", 
                     i + 1,

@@ -12,8 +12,6 @@ typedef struct Student{
 
 int getSize(FILE *fp);
 
-
-
 void readData(FILE *fp, Student students[], int size);
 
 void getAvg(Student students[], int size);

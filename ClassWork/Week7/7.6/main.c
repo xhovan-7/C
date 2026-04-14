@@ -13,7 +13,7 @@ int main(){
     
     readData(fp, students, size);
 
-   // printStudent(students, size);
+    printStudent(students, size);
 
     return 0;
 }

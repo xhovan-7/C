@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/xhova/OneDrive/Documents/GitHub/C",
-      "program": "c:/Users/xhova/OneDrive/Documents/GitHub/C/build/Debug/outDebug",
+      "cwd": "c:/Users/xhova/Documents/github/c/ClassWork/Week11/11.4",
+      "program": "c:/Users/xhova/Documents/github/c/ClassWork/Week11/11.4/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

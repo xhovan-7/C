@@ -1,12 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "func.h"
 
 
-
-int main(){
+int main(int argc, char *argv[]){
     FILE *source;
-    source = fopen("data2.txt", "r");
+    source = fopen(argv[1], "r");
     if (source == NULL){
         printf("Error opening file!\n");
         return 1;

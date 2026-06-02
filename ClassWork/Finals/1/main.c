@@ -16,26 +16,32 @@ void printList(node *head){
     }
 }
 
+node *createNewNode(int value){
+    node *newNode = (node*)malloc(sizeof(node));
+    newNode->value = value;
+    newNode->next = NULL;
+
+    return newNode;
+}
+
+node *insert_at_beginning(node **head, node *node_to_insert){
+    node_to_insert->next = *head;
+    *head = node_to_insert;
+    return node_to_insert;
+}
+
+
 
 int main(){
-    node n1, n2, n3;
-    node *head;
+    node *head = NULL;
+    node *temp;
 
-    n1.value = 2;
-    n2.value = 5;
-    n3.value = 9;
 
-    head = &n1;
-    n1.next = &n2;
-    n2.next = &n3;
-    n3.next = NULL;
+    for(int i = 0; i < 25; i++){
+        temp = createNewNode(i);
+        head = insert_at_beginning(head, temp);
+    }
 
-    node n4;
-    n4.value = 13;
-    n2.next= &n4;
-    n4.next = &n3;
-
-    head = head->next;
 
     printList(head);
 
